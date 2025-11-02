@@ -58,24 +58,24 @@ void menu() {
         cin >> op;
 
         switch (op) {
-                   case 1:
-                       inicializar();
-                       break;
-                   case 2:
-                       exibirQuantidade();
-                       break;
-                   case 3:
-                       inserir();
-                       break;
-                   case 4:
-                       exibir();
-                       break;
-                   case 5:
-                       buscar();
-                       break;
-               }
+        case 1:
+            inicializar();
+            break;
+        case 2:
+            exibirQuantidade();
+            break;
+        case 3:
+            inserir();
+            break;
+        case 4:
+            exibir();
+            break;
+        case 5:
+            buscar();
+            break;
+        }
 
-		cout << endl; 
+        cout << endl;
         if (op != 6) system("pause"); // Aguarda tecla (Windows)
     }
 }
@@ -140,43 +140,59 @@ int fatorBalanceamento(NO* no) {
     return alturaNo(no->esq) - alturaNo(no->dir);
 }
 
-NO* girarDireita(NO* y) {  
-   /* Rotação simples à direita  
-             y                x  
-            / \              / \  
-           x   T3   =>      T1  y  
-          / \                  / \  
-        T1  T2               T2  T3  
-   */  
+NO* girarDireita(NO* y) {
+    NO* x = y->esq;
+    y->esq = x->dir;
+    raiz = x;
+    x->dir = y;
+    alturaNo(x);
+    alturaNo(y);
+    return raiz = x;
+    /* Rotação simples à direita
+              y                x
+             / \              / \
+            x   T3   =>      T1  y
+           / \                  / \
+         T1  T2               T2  T3
+    */
 
-   // Passo 1: Armazene o filho esquerdo de 'y' em uma variável temporária 'x'.  
-   // Passo 2: Transfira a subárvore direita de 'x' para a subárvore esquerda de 'y'.  
-   // Passo 3: Atualize 'x' para ser o novo nó raiz da subárvore.  
-   // Passo 4: Recalcule as alturas dos nós afetados.  
-   // Passo 5: Retorne o novo nó raiz ('x').  
+    // Passo 1: Armazene o filho esquerdo de 'y' em uma variável temporária 'x'.  
+    // Passo 2: Transfira a subárvore direita de 'x' para a subárvore esquerda de 'y'.  
+    // Passo 3: Atualize 'x' para ser o novo nó raiz da subárvore.  
+    // Passo 4: Recalcule as alturas dos nós afetados.  
+    // Passo 5: Retorne o novo nó raiz ('x').  
 
-	// provisoriamente retorna o ponteiro passado como parâmetro
-	return y; 
-}  
+     // provisoriamente retorna o ponteiro passado como parâmetro
+    return y;
+}
 
-NO* girarEsquerda(NO* x) {  
-   /* Rotação simples à esquerda  
-           x                    y  
-          / \                  / \  
-         T1  y      =>        x  T3  
-            / \              / \  
-           T2 T3            T1 T2  
-   */  
+NO* girarEsquerda(NO* x) {
+    NO* y = x->dir;
+    NO* aux = y;
+    NO* aux2 = y;
+    x->dir = y->esq;
+    raiz = y;
+    y->esq = x;
+    alturaNo(x);
+    alturaNo(y);
+    return raiz = y;
+    /* Rotação simples à esquerda
+            x                    y
+           / \                  / \
+          T1  y      =>        x  T3
+             / \              / \
+            T2 T3            T1 T2
+    */
 
-   // Passo 1: Armazene o filho direito de 'x' em uma variável temporária 'y'.  
-   // Passo 2: Transfira a subárvore esquerda de 'y' para a subárvore direita de 'x'.  
-   // Passo 3: Atualize 'y' para ser o novo nó raiz da subárvore.  
-   // Passo 4: Recalcule as alturas dos nós afetados.  
-   // Passo 5: Retorne o novo nó raiz ('y').  
+    // Passo 1: Armazene o filho direito de 'x' em uma variável temporária 'y'.  
+    // Passo 2: Transfira a subárvore esquerda de 'y' para a subárvore direita de 'x'.  
+    // Passo 3: Atualize 'y' para ser o novo nó raiz da subárvore.  
+    // Passo 4: Recalcule as alturas dos nós afetados.  
+    // Passo 5: Retorne o novo nó raiz ('y').  
 
 
-    // provisoriamente retorna o ponteiro passado como parâmetro
-    return x; 
+     // provisoriamente retorna o ponteiro passado como parâmetro
+    return x;
 }
 
 NO* insereArvore(NO* no, int valor) {
